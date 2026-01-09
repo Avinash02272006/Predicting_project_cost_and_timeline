@@ -1,5 +1,5 @@
 
-const API_URL = 'http://127.0.0.1:5000/api';
+const API_URL = 'http://127.0.0.1:8000';
 
 async function login(event) {
     event.preventDefault();
@@ -15,7 +15,7 @@ async function login(event) {
         });
 
         if (res.ok) {
-            window.location.href = '../pages/home.html';
+            window.location.href = '/dashboard';
         } else {
             const data = await res.json();
             errorMsg.textContent = data.message || "Login failed";
@@ -41,7 +41,7 @@ async function register(event) {
         });
 
         if (res.ok) {
-            window.location.href = '../pages/login.html';
+            window.location.href = '/login';
         } else {
             alert("Registration failed. Username/Email may exist.");
         }

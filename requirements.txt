@@ -4,13 +4,13 @@ scikit-learn
 xgboost
 shap
 joblib
-streamlit
+streamlit #frontend
 plotly
 passlib[bcrypt]
 python-jose[cryptography]
 python-multipart
-sqlalchemy
-fastapi
+sqlalchemy #database
+fastapi #server
 uvicorn
 python-dotenv
 openai

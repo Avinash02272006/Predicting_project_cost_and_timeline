@@ -40,50 +40,49 @@ def login_user(username, password):
             st.session_state.username = username
             st.rerun()
         else: st.error("Invalid credentials")
-    except: st.error("Server Offline")
+    except Exception as e:
+        st.error(f"Connection Error: {e}")
 
 def register_user(username, email, password):
     try:
         res = requests.post(f"{API_URL}/register", json={"username": username, "email": email, "password": password})
         if res.status_code == 201: st.success("Joined! Login now.")
         else: st.error(res.json().get('detail'))
-    except: st.error("Server Offline")
+    except Exception as e:
+        st.error(f"Connection Error: {e}")
 
 # --- UI Components ---
 
 def render_login():
-    # Facebook-style Split Screen
-    col_left, col_right = st.columns([1.5, 1])
-    
-    with col_left:
-        st.markdown("""
-        <div class='login-left'>
-            <div class='login-title'>ProPredict AI ⚡</div>
-            <div class='login-subtitle'>
-                The Future of IT Project Analytics.<br>
-                Predict Timelines. Optimize Costs. <br>
-                <b>Build Better Software.</b>
-            </div>
+    st.markdown("""
+    <div class='landing-container'>
+        <div class='landing-content'>
+            <h1 class='main-title'>PRO PREDICT <span style='color:#FF6584'>.AI</span></h1>
+            <p class='sub-title'>Next-Gen Project Analytics & Forecasting</p>
         </div>
-        """, unsafe_allow_html=True)
+    </div>
+    """, unsafe_allow_html=True)
+
+    c1, c2, c3 = st.columns([1, 2, 1])
+    with c2:
+        st.markdown("<div class='auth-box'>", unsafe_allow_html=True)
+        tab1, tab2 = st.tabs(["Login", "Create Account"])
         
-    with col_right:
-        st.markdown("<div class='login-card'>", unsafe_allow_html=True)
-        tab_login, tab_reg = st.tabs(["Login", "Sign Up"])
-        
-        with tab_login:
-            with st.form("login_f"):
-                u = st.text_input("Username", placeholder="Enter username")
-                p = st.text_input("Password", type="password", placeholder="••••••")
-                if st.form_submit_button("Log In", use_container_width=True):
+        with tab1:
+            with st.form("login_form"):
+                st.write("### Welcome Back")
+                u = st.text_input("Username", key="l_u")
+                p = st.text_input("Password", type="password", key="l_p")
+                if st.form_submit_button("Access Dashboard", use_container_width=True):
                     login_user(u, p)
         
-        with tab_reg:
-            with st.form("reg_f"):
-                u = st.text_input("Username")
-                e = st.text_input("Email")
-                p = st.text_input("Password", type="password")
-                if st.form_submit_button("Sign Up", use_container_width=True):
+        with tab2:
+            with st.form("reg_form"):
+                st.write("### Join System")
+                u = st.text_input("Username", key="r_u")
+                e = st.text_input("Email", key="r_e")
+                p = st.text_input("Password", type="password", key="r_p")
+                if st.form_submit_button("Register New User", use_container_width=True):
                     register_user(u, e, p)
         st.markdown("</div>", unsafe_allow_html=True)
 

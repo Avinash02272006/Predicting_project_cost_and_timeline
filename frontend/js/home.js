@@ -1,5 +1,5 @@
 
-const API_URL = 'http://127.0.0.1:5000/api';
+const API_URL = 'http://127.0.0.1:8000';
 let chartInstance1 = null;
 let chartInstance2 = null;
 
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Logout
 function logout() {
     fetch(`${API_URL}/logout`, { method: 'POST' }).then(() => {
-        window.location.href = '../pages/index.html';
+        window.location.href = '/';
     });
 }
 
@@ -73,9 +73,11 @@ function renderResult(data) {
     document.querySelector('.input-container').style.marginTop = '0'; // Move input up
 
     // Numbers
-    document.getElementById('val-cost').textContent = `+${data.cost_overrun}%`;
-    document.getElementById('val-time').textContent = `+${data.predicted_delay}d`;
-    document.getElementById('val-sug').textContent = data.suggestion;
+    document.getElementById('val-cost').textContent = `+${data.cost_overrun_percent}%`;
+    document.getElementById('val-time').textContent = `+${data.predicted_delay_days}d`;
+    // Suggestion might be nested or direct depending on API, backend returns risk_level/color/confidence mostly
+    // But update Suggestion logic below to fetch separately or use what's available
+    document.getElementById('val-sug').textContent = data.risk_level;
 
     // Charts
     renderCharts(data);
@@ -104,7 +106,7 @@ function renderCharts(data) {
         data: {
             labels: ['Budget', 'Overrun'],
             datasets: [{
-                data: [100, data.cost_overrun],
+                data: [100, data.cost_overrun_percent],
                 backgroundColor: ['#3b82f6', '#ef4444'],
                 borderWidth: 0
             }]
@@ -119,7 +121,7 @@ function renderCharts(data) {
             labels: ['Est. Time', 'Delay'],
             datasets: [{
                 label: 'Days',
-                data: [30, data.predicted_delay], // 30 is dummy baseline
+                data: [30, data.predicted_delay_days], // 30 is dummy baseline
                 backgroundColor: ['#10b981', '#f59e0b'],
                 borderRadius: 5
             }]
