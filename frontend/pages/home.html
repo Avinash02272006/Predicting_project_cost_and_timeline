@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - ProPredict</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body data-theme="dark">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="app-brand">
+            <span>⚡</span> ProPredict
+        </div>
+        <button class="btn-new-chat" onclick="newProject()">
+            <span>+</span> New Project
+        </button>
+
+        <div class="history-list" id="history-list">
+            <!-- Items injected by JS -->
+        </div>
+
+        <div class="user-profile">
+            <span>User</span>
+            <button class="btn-logout" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="top-bar">
+            <button class="theme-toggle" id="theme-btn">◑</button>
+        </div>
+
+        <div class="chat-area">
+            <div class="result-container" id="result-area">
+                <div class="metric-row">
+                    <div class="metric-card">
+                        <div>Cost Overrun</div>
+                        <div class="metric-value" id="val-cost">0%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div>Timeline Delay</div>
+                        <div class="metric-value" id="val-time">0d</div>
+                    </div>
+                </div>
+
+                <div class="suggestion-card fade-in">
+                    <h3>💡 AI Suggestion</h3>
+                    <p id="val-sug">Analyzing...</p>
+                </div>
+
+                <div class="charts-row">
+                    <div class="chart-container">
+                        <canvas id="costChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="timeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-container slide-up">
+                <textarea id="project-desc" placeholder="Describe your project here to get AI insights..."></textarea>
+                <button class="btn-submit" onclick="analyzeProject()">Analyze</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/home.js"></script>
+</body>
+
+</html>

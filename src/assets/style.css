@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+:root {
+    --primary: #6C63FF;
+    --secondary: #FF6584;
+    --bg-dark: #0f172a;
+    --glass: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.1);
+    --text: #ffffff;
+}
+
+html,
+body,
+.stApp {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text);
+}
+
+/* Hide Default Streamlit Elements */
+#MainMenu,
+header,
+footer {
+    visibility: hidden;
+}
+
+.stDeployButton {
+    display: none;
+}
+
+/* ===========================
+   LOGIN PAGE (Facebook Style)
+   =========================== */
+.login-container {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-left {
+    padding: 4rem;
+    animation: slideInLeft 1s ease;
+}
+
+.login-title {
+    font-size: 4rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #6C63FF, #FF6584);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+}
+
+.login-subtitle {
+    font-size: 1.5rem;
+    color: #94a3b8;
+}
+
+.login-card {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 1.2s ease;
+}
+
+/* ===========================
+   DASHBOARD (ChatGPT Style)
+   =========================== */
+
+/* Sidebar Styling */
+section[data-testid="stSidebar"] {
+    background-color: #1e293b;
+    border-right: 1px solid var(--border);
+}
+
+/* Chat Message Bubbles */
+.chat-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.user-msg {
+    background-color: #334155;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    border-left: 4px solid var(--primary);
+}
+
+.ai-msg {
+    background-color: var(--glass);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Input Form Styling */
+.stTextInput input,
+.stTextArea textarea,
+.stSelectbox,
+.stNumberInput input {
+    background-color: #334155 !important;
+    border: 1px solid var(--border) !important;
+    color: white !important;
+    border-radius: 8px !important;
+}
+
+.stButton button {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border: none;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    transition: transform 0.2s;
+}
+
+.stButton button:hover {
+    transform: scale(1.05);
+}
+
+/* Animations */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.metric-card {
+    background: #1e293b;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid var(--border);
+}

@@ -1,0 +1,16 @@
+pandas
+numpy
+scikit-learn
+xgboost
+shap
+joblib
+streamlit
+plotly
+passlib[bcrypt]
+python-jose[cryptography]
+python-multipart
+sqlalchemy
+fastapi
+uvicorn
+python-dotenv
+openai
