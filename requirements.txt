@@ -4,8 +4,6 @@ scikit-learn
 xgboost
 shap
 joblib
-streamlit #frontend
-plotly
 passlib[bcrypt]
 python-jose[cryptography]
 python-multipart

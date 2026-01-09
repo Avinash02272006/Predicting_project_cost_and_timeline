@@ -1,5 +1,5 @@
 
-const API_URL = 'http://127.0.0.1:8000';
+const API_URL = '';
 
 async function login(event) {
     event.preventDefault();
@@ -15,6 +15,8 @@ async function login(event) {
         });
 
         if (res.ok) {
+            const data = await res.json();
+            localStorage.setItem('access_token', data.access_token);
             window.location.href = '/dashboard';
         } else {
             const data = await res.json();

@@ -1,5 +1,5 @@
 
-const API_URL = 'http://127.0.0.1:8000';
+const API_URL = '';
 let chartInstance1 = null;
 let chartInstance2 = null;
 
@@ -11,9 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Logout
 function logout() {
-    fetch(`${API_URL}/logout`, { method: 'POST' }).then(() => {
-        window.location.href = '/';
-    });
+    localStorage.removeItem('access_token');
+    window.location.href = '/';
 }
 
 // New Chat
@@ -28,16 +27,26 @@ async function loadHistory() {
     const list = document.getElementById('history-list');
     list.innerHTML = '';
 
-    const res = await fetch(`${API_URL}/history`);
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+        window.location.href = '/login';
+        return;
+    }
+
+    const res = await fetch(`${API_URL}/history`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+    });
     if (res.ok) {
         const data = await res.json();
         data.forEach(item => {
             const div = document.createElement('div');
             div.className = 'history-item';
-            div.textContent = `Project ${item.id} - ${item.timestamp.substring(0, 10)}`;
+            div.textContent = `${item.project_type} - ${item.timestamp.substring(0, 10)}`;
             div.onclick = () => loadResult(item);
             list.appendChild(div);
         });
+    } else if (res.status === 401) {
+        logout();
     }
 }
 
@@ -48,15 +57,28 @@ async function analyzeProject() {
 
     // UI Loading state could go here
 
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+        window.location.href = '/login';
+        return;
+    }
+
     const res = await fetch(`${API_URL}/predict`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({
-            description: desc,
-            // Defaults as hidden params or could be extended
+            project_description: desc,
             project_type: "Web App",
-            developers: 5,
-            complexity: 5
+            complexity_score: 5,
+            number_of_developers: 5,
+            team_experience_rating: 3,
+            dependency_delay_days: 5,
+            resource_availability_ratio: 0.8,
+            labour_cost_index: 1.5,
+            historical_delay_days: 0
         })
     });
 
