@@ -1,0 +1,140 @@
+/* style.css */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+#chat-container {
+    scrollbar-width: none; /* Firefox */
+}
+
+#chat-container::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+}
+
+.user-message, .bot-message {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.user-message {
+    align-items: flex-end;
+}
+
+.bot-message {
+    align-items: flex-start;
+}
+
+/* User Message Bubble */
+.user-message .markdown-content {
+    background-color: #fafafa;
+    color: #09090b;
+    padding: 14px 20px;
+    border-radius: 24px;
+    border-bottom-right-radius: 4px;
+    max-width: 80%;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transform-origin: bottom right;
+    animation: popInUser 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Bot Message Bubble */
+.bot-message .markdown-content {
+    background-color: transparent;
+    color: #fafafa;
+    padding: 0;
+    max-width: 90%;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    transform-origin: bottom left;
+    animation: popInBot 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Enhancing Markdown Elements */
+.markdown-content p {
+    margin-bottom: 0.75rem;
+}
+.markdown-content p:last-child {
+    margin-bottom: 0;
+}
+.markdown-content strong {
+    font-weight: 600;
+    color: #fff;
+}
+.user-message .markdown-content strong {
+    color: #000;
+}
+.markdown-content h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #fff;
+    border-bottom: 1px solid #27272a;
+    padding-bottom: 0.5rem;
+}
+.markdown-content ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+.markdown-content li {
+    margin-bottom: 0.25rem;
+    color: #a1a1aa;
+}
+.markdown-content hr {
+    border-color: #27272a;
+    margin: 1.5rem 0;
+}
+
+@keyframes popInUser {
+    0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes popInBot {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chart-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 2.5rem;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .chart-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+canvas {
+    background-color: #18181b;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    width: 100% !important;
+    height: 100% !important;
+}

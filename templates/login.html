@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - AI Project Predictor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        background: '#09090b',
+                        surface: '#18181b',
+                        surfaceHover: '#27272a',
+                        border: '#27272a',
+                        textPrimary: '#fafafa',
+                        textSecondary: '#a1a1aa'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-textPrimary flex flex-col items-center justify-center h-screen antialiased selection:bg-white selection:text-black">
+    <div class="w-full max-w-sm p-8 bg-surface/80 backdrop-blur-xl border border-border rounded-3xl shadow-2xl">
+        <div class="flex items-center gap-3 mb-8 justify-center">
+            <div class="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center font-bold text-base tracking-tighter shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+                AI
+            </div>
+            <span class="text-lg font-medium tracking-wide">Predictor</span>
+        </div>
+        
+        <h2 class="text-2xl font-semibold mb-6 text-center">Welcome back</h2>
+        
+        {% if error %}
+        <div class="bg-red-500/10 border border-red-500/50 text-red-500 text-sm p-3 rounded-xl mb-4 text-center">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form action="{{ url_for('login') }}" method="POST" class="space-y-4">
+            <div>
+                <label class="block text-sm text-textSecondary mb-1" for="username">Username</label>
+                <input type="text" name="username" id="username" required
+                    class="w-full bg-transparent border border-border rounded-xl px-4 py-3 text-textPrimary focus:outline-none focus:border-white transition-colors placeholder-textSecondary" placeholder="Enter username">
+            </div>
+            <div>
+                <label class="block text-sm text-textSecondary mb-1" for="password">Password</label>
+                <input type="password" name="password" id="password" required
+                    class="w-full bg-transparent border border-border rounded-xl px-4 py-3 text-textPrimary focus:outline-none focus:border-white transition-colors placeholder-textSecondary" placeholder="Enter password">
+            </div>
+            <button type="submit" class="w-full py-3 bg-white text-black rounded-xl font-medium hover:bg-gray-200 transition-colors mt-2">
+                Sign In
+            </button>
+        </form>
+        
+        <p class="mt-6 text-center text-sm text-textSecondary">
+            Don't have an account? <a href="{{ url_for('register') }}" class="text-white hover:underline">Register</a>
+        </p>
+    </div>
+</body>
+</html>

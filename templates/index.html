@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Project Predictor</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Markdown Renderer -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=4.0">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        background: '#09090b',
+                        surface: '#18181b',
+                        surfaceHover: '#27272a',
+                        border: '#27272a',
+                        textPrimary: '#fafafa',
+                        textSecondary: '#a1a1aa'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background text-textPrimary flex h-screen antialiased selection:bg-white selection:text-black overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-surface border-r border-border flex flex-col h-full hidden md:flex shrink-0 z-20">
+        <div class="p-4 border-b border-border flex items-center justify-between">
+            <span class="font-semibold tracking-wide text-sm text-textSecondary">CHAT HISTORY</span>
+            <button id="new-chat-btn" class="text-xs font-medium bg-white text-black px-3 py-1.5 rounded-full hover:bg-gray-200 transition-colors shadow-sm">+ New</button>
+        </div>
+        <div id="history-list" class="flex-1 overflow-y-auto p-3 space-y-2 scrollbar-hide">
+            <!-- History items will be injected here -->
+        </div>
+        <div class="p-4 border-t border-border text-sm flex justify-between items-center text-textSecondary bg-surface">
+            <span class="truncate pr-2">{{ username }}</span>
+            <a href="{{ url_for('logout') }}" class="text-xs text-red-500 hover:text-red-400 transition-colors">Logout</a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col h-full relative overflow-hidden">
+        <!-- Minimalist Header -->
+        <header class="flex items-center justify-between p-6 max-w-4xl w-full mx-auto shrink-0">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-white text-black flex items-center justify-center font-bold text-sm tracking-tighter shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+                AI
+            </div>
+            <span class="text-sm font-medium tracking-wide">Project Predictor</span>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button id="clear-btn" class="text-xs font-medium px-4 py-2 bg-surface hover:bg-surfaceHover border border-border rounded-full transition-colors duration-200 text-textPrimary">Clear Chat</button>
+            <button id="print-btn" class="text-xs font-medium px-4 py-2 bg-white text-black hover:bg-gray-200 rounded-full transition-colors duration-200 hidden shadow-[0_0_10px_rgba(255,255,255,0.2)]">Export</button>
+            <a href="{{ url_for('logout') }}" class="md:hidden text-xs font-medium px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/20 rounded-full transition-colors duration-200">Logout</a>
+        </div>
+    </header>
+
+    <!-- Chat Container -->
+    <main id="chat-container" class="flex-1 overflow-y-auto px-4 pb-32 max-w-3xl w-full mx-auto space-y-8 scroll-smooth">
+        <!-- Initial Welcome Message -->
+        <div class="bot-message mt-8">
+            <div class="markdown-content">
+                Hello. I am the AI Estimator. I can accurately forecast the cost and timeline for your software project.<br><br>
+                Please describe your project, and I'll ask a few clarifying questions if needed.
+            </div>
+        </div>
+    </main>
+
+    <!-- Input Area (Floating) -->
+    <div class="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background via-background to-transparent pointer-events-none">
+        <div class="max-w-3xl mx-auto flex items-end gap-3 pointer-events-auto bg-surface/80 backdrop-blur-xl border border-border p-2 rounded-[2rem] shadow-2xl transition-all focus-within:border-gray-500 focus-within:bg-surface/90">
+            <input id="user-input" type="text" placeholder="Type your message..." autocomplete="off"
+                class="flex-1 bg-transparent text-sm text-textPrimary px-4 py-3 focus:outline-none placeholder-textSecondary">
+            <button id="send-btn"
+                class="w-10 h-10 flex items-center justify-center bg-white text-black rounded-full hover:scale-105 active:scale-95 transition-transform duration-200 shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    </div> <!-- End Main Content -->
+
+    <!-- Main JS -->
+    <script src="{{ url_for('static', filename='main.js') }}?v=4.0"></script>
+</body>
+
+</html>
